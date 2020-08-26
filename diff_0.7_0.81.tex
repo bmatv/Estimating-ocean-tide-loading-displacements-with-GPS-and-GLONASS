@@ -1,4 +1,7 @@
 %% Copernicus Publications Manuscript Preparation Template for LaTeX Submissions
+%DIF LATEXDIFF DIFFERENCE FILE
+%DIF DEL revision0.7.tex    Thu Aug  6 12:39:53 2020
+%DIF ADD revision0.81.tex   Fri Aug 21 16:09:19 2020
 %% ---------------------------------
 %% This template should be used for copernicus.cls
 %% The class file and some style files are bundled in the Copernicus Latex Package, which can be downloaded from the different journal webpages.
@@ -73,7 +76,43 @@
 %\usepackage{float}
 %\usepackage{subfig}
 %\usepackage{rotating}
-
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF UNDERLINE PREAMBLE %DIF PREAMBLE
+\RequirePackage[normalem]{ulem} %DIF PREAMBLE
+\RequirePackage{color}\definecolor{RED}{rgb}{1,0,0}\definecolor{BLUE}{rgb}{0,0,1} %DIF PREAMBLE
+\providecommand{\DIFadd}[1]{{\protect\color{blue}\uwave{#1}}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{{\protect\color{red}\sout{#1}}}                      %DIF PREAMBLE
+%DIF SAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddbegin}{} %DIF PREAMBLE
+\providecommand{\DIFaddend}{} %DIF PREAMBLE
+\providecommand{\DIFdelbegin}{} %DIF PREAMBLE
+\providecommand{\DIFdelend}{} %DIF PREAMBLE
+\providecommand{\DIFmodbegin}{} %DIF PREAMBLE
+\providecommand{\DIFmodend}{} %DIF PREAMBLE
+%DIF FLOATSAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}} %DIF PREAMBLE
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}} %DIF PREAMBLE
+\providecommand{\DIFaddbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFaddendFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelendFL}{} %DIF PREAMBLE
+%DIF LISTINGS PREAMBLE %DIF PREAMBLE
+\RequirePackage{listings} %DIF PREAMBLE
+\RequirePackage{color} %DIF PREAMBLE
+\lstdefinelanguage{DIFcode}{ %DIF PREAMBLE
+%DIF DIFCODE_UNDERLINE %DIF PREAMBLE
+  moredelim=[il][\color{red}\sout]{\%DIF\ <\ }, %DIF PREAMBLE
+  moredelim=[il][\color{blue}\uwave]{\%DIF\ >\ } %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstdefinestyle{DIFverbatimstyle}{ %DIF PREAMBLE
+	language=DIFcode, %DIF PREAMBLE
+	basicstyle=\ttfamily, %DIF PREAMBLE
+	columns=fullflexible, %DIF PREAMBLE
+	keepspaces=true %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim}{\lstset{style=DIFverbatimstyle}}{} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim*}{\lstset{style=DIFverbatimstyle,showspaces=true}}{} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
 
 \begin{document}
 
@@ -152,7 +191,7 @@ The chosen sites experience a range of $M_2$ up OTL amplitudes, from > 30 mm (AN
 
 %figure 1
 \begin{figure}[t]
-\includegraphics[width=8.3cm]{fig01.png}
+\includegraphics[width=8.3cm]{fig01_updated.png}
 \caption{Map of the study area with GNSS site codes and $M_2$ up displacement amplitude in the background (TPXO7.2 ocean tide model and spherically symmetric earth with PREM structure).}
 \end{figure}
 
@@ -174,7 +213,7 @@ It has been suggested that orbit arc length for a given product could potentiall
 
 We post-processed the estimated coordinate time series as per \cite{Penna2015}: the resulting 5-min sampled solutions were clipped to the respective 24-h window and merged together. Outliers were filtered from the raw 4-yr timeseries  using two consecutive outlier-detection strategies: rejecting epochs with extreme receiver clock bias values ($>3 \times 10^{3}$ m) or where the XYZ $\sigma$ was over 0.1 m; and then rejecting epochs with residuals to a linear trend larger than three standard deviations per coordinate component. The XYZ timeseries were converted to a local east-north-up coordinate frame, detrended and resampled to 30-min sampling rate via a simple 7-point window average (7 samples -> 1 sample). 30-min averaging reduces high frequency noise (unrelated to OTL) as well as the computational burden of further harmonic analysis.
 
-Finally, OTL displacements modelled in GipsyX were added back using HARDISP \citep{IERS2010}. HARDISP uses spline interpolation of the tidal admittance of 11 major constituents to infer values of 342 tidal constituents and generate a time series of tidal displacements. This approach almost eliminates the effect of companion constituents \citep{Foreman1989} as they are modelled during the processing stage; small errors in the modelled major OTL constituents will propagate into negligible errors in modelled companion tides. Thus, the analysed harmonic displacement parameters represent true displacement plus an indiscernible companion constituent error that is far below the measurement error. We tested the effect of the ‘remove-restore’ OTL procedure we adopted by solutions without modelling OTL in GipsyX. The resulting differences in $M_2$ amplitudes were smaller than 0.1 mm, and this was reduced further when coordinate process noise was increased. This confirms that the results are independent of the prior FES2004\_GBe OTL values. The findings in our paper are provided in the context of GipsyX software and solutions derived using other software may produce different results especially if the underlying model choices differ.
+Finally, OTL displacements modelled in GipsyX were added back using HARDISP \citep{IERS2010}. HARDISP uses spline interpolation of the tidal admittance of 11 major constituents to infer values of 342 tidal constituents and generate a time series of tidal displacements. This approach almost eliminates the effect of companion constituents \citep{Foreman1989} as they are modelled during the processing stage; small errors in the modelled major OTL constituents will propagate into negligible errors in modelled companion tides. Thus, the analysed harmonic displacement parameters represent true displacement plus an indiscernible companion constituent error that is far below the measurement error. \DIFaddbegin \DIFadd{We tested the effect of the ‘remove-restore’ OTL procedure we adopted by solutions without modelling OTL in GipsyX. The resulting differences in $M_2$ amplitudes were smaller than 0.1 mm, and this was reduced further when coordinate process noise was increased. This confirms that the results are independent of the prior FES2004\_GBe OTL values. }\DIFaddend The findings in our paper are provided in the context of GipsyX software and solutions derived using other software may produce different results especially if the underlying model choices differ.
 
 The harmonic analysis of the reconstructed OTL signal was performed using the Eterna software v.3.30 \citep{Wenzel1996}, resulting in amplitudes and local tidal potential phase lags negative which are suitable for solid Earth tide studies. OTL phase-lag, however, is defined with respect to the Greenwich meridian and phase lags are positive. Transforming to Greenwich-relative lags was done according to \cite{Boy2003} and \cite{Bos2000}. We then computed the vector difference between the reconstructed observed OTL and that predicted by the model, following the notation of \cite{Yuan2013}:
 
